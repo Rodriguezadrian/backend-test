@@ -6,8 +6,8 @@ const checkRole = require("../middlewares/permissionRequired");
 const runAllSeeders = require("../seeders/runAllSeeders");
 const createTables = require("../createTables");
 
-// router.use(checkJwt({ secret: process.env.SECRET_JWT, algorithms: ["HS256"] }));
-// router.use(checkRole.admin);
+router.use(checkJwt({ secret: process.env.SECRET_JWT, algorithms: ["HS256"] }));
+router.use(checkRole.admin);
 router.delete("/destroy", productController.destroyDB);
 router.post("/run-seeders", async (req, res) => {
   try {
@@ -18,5 +18,6 @@ router.post("/run-seeders", async (req, res) => {
     res.status(500).json({ msg: "Error executing seeders", error });
   }
 });
+
 
 module.exports = router;

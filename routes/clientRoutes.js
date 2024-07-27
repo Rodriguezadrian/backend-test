@@ -5,7 +5,7 @@ const { expressjwt: checkJwt } = require("express-jwt");
 
 // router.use(checkJwt({ secret: process.env.SECRET_JWT, algorithms: ["HS256"] }));
 router.get("/", clientController.index);
-router.post("/adrsd", clientController.store);
+router.post("/add", clientController.store);
 router.get("/:id", clientController.show);
 router.patch("/:id", clientController.update);
 router.delete("/:id", clientController.destroy);

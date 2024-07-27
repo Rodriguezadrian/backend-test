@@ -27,6 +27,7 @@ Category.initModel(sequelize);
 User.initModel(sequelize);
 Admin.initModel(sequelize);
 
+
 Product.hasMany(Category, { foreignKey: "CategoryId" });
 Category.belongsTo(Product);
 

@@ -102,7 +102,7 @@ const ProductController = {
     try {
       const { id } = req.params;
       const product = await Product.destroy({ where: { id } });
-      res.json(product);
+      res.json({ msg: "Cellphone deleted" });
     } catch (err) {
       console.error(err);
       res.status(500).json({

@@ -101,8 +101,9 @@ const clientController = {
   destroy: async (req, res) => {
     try {
       const { id } = req.params;
+      const productDeleted = await Product.findByPk(id);
       const product = await Product.destroy({ where: { id } });
-      res.json({ msg: "Cellphone deleted", product: product });
+      res.json({ msg: "Cellphone deleted", cellphoneDeleted: productDeleted });
     } catch (err) {
       console.error(err);
       res.status(500).json({
