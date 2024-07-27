@@ -18,8 +18,6 @@ const adminController = {
       const newAdmin = await Admin.create({
         email,
         password,
-        firstname,
-        lastname,
       });
       res.json(newAdmin);
     } catch (error) {
