@@ -8,6 +8,7 @@ const sequelizeOptions = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   dialect: process.env.DB_CONNECTION,
+  dialectModule: require("mysql2"),
   logging: false,
 };
 
@@ -26,7 +27,6 @@ Product.initModel(sequelize);
 Category.initModel(sequelize);
 User.initModel(sequelize);
 Admin.initModel(sequelize);
-
 
 Product.hasMany(Category, { foreignKey: "CategoryId" });
 Category.belongsTo(Product);
