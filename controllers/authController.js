@@ -5,10 +5,10 @@ const bcrypt = require("bcryptjs");
 async function getToken(req, res) {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
-    if (!user) return res.json({ msg: "Check your credentials 1..." });
+    if (!user) return res.json({ msg: "Check your credentials..." });
 
     const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) return res.json({ msg: "Check your credentials 2..." });
+    if (!match) return res.json({ msg: "Check your credentials..." });
 
     const token = jwt.sign(
       { sub: user.id, email: user.email, isAdmin: false },
