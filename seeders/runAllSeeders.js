@@ -6,7 +6,13 @@ const runAllSeeders = async () => {
   await require("./userSeeder.js")();
   await require("./adminSeeder.js")();
 
-  console.log("[Database] ¡Data inserted succesfully!");
+  console.log("[Database] ¡Data inserted successfully!");
 };
 
 module.exports = runAllSeeders;
+
+if (require.main === module) {
+  runAllSeeders().catch((err) => {
+    console.error("Error running seeders:", err);
+  });
+}
