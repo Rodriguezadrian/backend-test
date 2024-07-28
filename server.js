@@ -9,7 +9,7 @@ const path = require("path");
 const app = express();
 
 const swaggerDocument = YAML.load(
-  path.join(__dirname, "docs", "documentation.yaml")
+  path.join(__dirname, "documentation.yaml")
 );
 
 const allowedOrigins = ["https://frontend-test-delta-sooty.vercel.app"];
