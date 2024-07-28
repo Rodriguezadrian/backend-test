@@ -7,7 +7,7 @@ info:
     name: Adrian
     email: rgadrian.93@gmail.com
 servers:
-  - url:https://backend-test-tawny.vercel.app/
+  - url: https://backend-test-tawny.vercel.app/
 paths:
   /cellphone:
     get:
