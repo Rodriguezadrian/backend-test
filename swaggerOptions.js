@@ -10,11 +10,11 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://backend-test-five-sable.vercel.app/",
       },
     ],
   },
-  apis: ["./routes/*.js"]
+  apis: ["./routes/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
