@@ -1,0 +1,223 @@
+openapi: 3.0.0
+info:
+  title: Cellphone API
+  version: 1.0.0
+  description: API documentationssssssssss
+  contact:
+    name: Your Name
+    url: http://yourwebsite.com
+    email: youremail@domain.com
+servers:
+  - url: https://backend-test-five-sable.vercel.app/
+paths:
+  /client:
+    get:
+      tags:
+        - Cellphones
+      summary: Get list of cellphonesss
+      responses:
+        '200':
+          description: List of cellphones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "iPhone 12"
+                    price:
+                      type: number
+                      format: float
+                      example: 999.99
+    post:
+      tags:
+        - Cellphones
+      summary: Add a new cellphone
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "iPhone 12"
+                price:
+                  type: number
+                  format: float
+                  example: 999.99
+      responses:
+        '201':
+          description: Cellphone added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "iPhone 12"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+  /client/{id}:
+    get:
+      tags:
+        - Cellphones
+      summary: Get a specific cellphone's information
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      responses:
+        '200':
+          description: Cellphone information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "iPhone 12"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+        '404':
+          description: Cellphone not found
+    patch:
+      tags:
+        - Cellphones
+      summary: Update a specific cellphone's information
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "iPhone 12"
+                price:
+                  type: number
+                  format: float
+                  example: 999.99
+      responses:
+        '200':
+          description: Cellphone updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "iPhone 12"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+        '404':
+          description: Cellphone not found
+    delete:
+      tags:
+        - Cellphones
+      summary: Delete a specific cellphone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      responses:
+        '200':
+          description: Cellphone deleted successfully
+        '404':
+          description: Cellphone not found
+  /database/destroy:
+    delete:
+      tags:
+        - Database
+      summary: Destroy the entire database
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Database destroyed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Database destroyed successfully"
+        '500':
+          description: Internal server error
+  /database/run-seeders:
+    post:
+      tags:
+        - Database
+      summary: Run all seeders and create tables
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Seeders executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Seeders executed successfully"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error executing seeders"
+                  error:
+                    type: string
+                    example: "Detailed error message"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
