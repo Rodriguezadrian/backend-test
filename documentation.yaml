@@ -71,7 +71,7 @@ paths:
                     type: number
                     format: float
                     example: 999.99
-  /cellphone/{id}:
+  /cellphone/:id:
     get:
       tags:
         - Cellphones
@@ -226,7 +226,7 @@ paths:
                     type: number
                     format: float
                     example: 999.99
-  /client/{id}:
+  /client/:id:
     get:
       tags:
         - Client
@@ -502,7 +502,7 @@ paths:
                   email:
                     type: string
                     example: "admin@example.com"
-  /admins/{id}:
+  /admins/:id:
     get:
       tags:
         - Admins
