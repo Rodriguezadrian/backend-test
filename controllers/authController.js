@@ -5,20 +5,13 @@ const bcrypt = require("bcryptjs");
 async function getToken(req, res) {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
-    if (!user) return res.json({ msg: "Check your credentials..." });
+    if (!user) return res.json({ msg: "Check your credentials 1..." });
 
     const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) return res.json({ msg: "Check your credentials..." });
-
-    // Aquí puedes agregar la validación de permisos para usuarios
-    if (!user.hasUserPermission) {
-      return res
-        .status(403)
-        .json({ msg: "User doesn't have the required permission" });
-    }
+    if (!match) return res.json({ msg: "Check your credentials 2..." });
 
     const token = jwt.sign(
-      { sub: user.id, email: user.email, isAdmin: false, permission: "user" },
+      { sub: user.id, email: user.email, isAdmin: false },
       process.env.SECRET_JWT
     );
     const { id, email, firstname, lastname } = user;
@@ -36,14 +29,8 @@ async function getAdminToken(req, res) {
     const match = await bcrypt.compare(req.body.password, admin.password);
     if (!match) return res.json({ msg: "Check your credentials" });
 
-    if (!admin.hasAdminPermission) {
-      return res
-        .status(403)
-        .json({ msg: "Admin doesn't have the required permission" });
-    }
-
     const token = jwt.sign(
-      { sub: admin.id, isAdmin: true, permission: "admin" },
+      { sub: admin.id, isAdmin: true },
       process.env.SECRET_JWT
     );
     const { email, id } = admin;
