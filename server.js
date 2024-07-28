@@ -12,7 +12,7 @@ const swaggerDocument = YAML.load(
   path.join(__dirname, "docs", "documentation.yaml")
 );
 
-const allowedOrigins = ["https://frontend-test-delta-sooty.vercel.app"];
+const allowedOrigins = ["https://backend-test-tawny.vercel.app/"];
 app.use(
   cors({
     origin: function (origin, callback) {
