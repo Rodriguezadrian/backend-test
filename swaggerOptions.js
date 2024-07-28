@@ -10,11 +10,11 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000", // La URL base de tu API
+        url: "http://localhost:3000",
       },
     ],
   },
-  apis: ["./routes/*.js"], // Ruta a los archivos donde están los comentarios Swagger
+  apis: ["./routes/*.js"]
 };
 
 const swaggerSpec = swaggerJSDoc(options);

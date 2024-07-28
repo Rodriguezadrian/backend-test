@@ -5,34 +5,104 @@ const authController = require("../controllers/authController");
 /**
  * @swagger
  * tags:
- *   name: Admin
- *   description: API endpoints related to admins
+ *   name: Authentication
+ *   description: API endpoints related to authentication
  */
 
 /**
  * @swagger
- * /admin:
- *   get:
- *     summary: Get admin token
- *     description: Returns a token for an admin
- *     tags: [Admin]
+ * /user:
+ *   post:
+ *     summary: Get user token
+ *     description: Returns a JWT token for a user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: User email
+ *                 example: test@test.com
+ *               password:
+ *                 type: string
+ *                 description: User password
+ *                 example: 1234
  *     responses:
  *       200:
- *         description: Token
+ *         description: JWT token
  *         content:
+ *           application/json:
  *             schema:
- *               type: string
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     description: The user ID
- *                   name:
- *                     type: string
- *                     description: The user name
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: JWT token
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Invalid email or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Error message
+ *                   example: "Invalid email or password"
  */
+
 router.post("/user", authController.getToken);
+/**
+ * @swagger
+ * /admin:
+ *   post:
+ *     summary: Get admin token
+ *     description: Returns a JWT token for an admin
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Admin email
+ *                 example: admin@admin.com
+ *               password:
+ *                 type: string
+ *                 description: Admin password
+ *                 example: 1234
+ *     responses:
+ *       200:
+ *         description: JWT token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: JWT token
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Invalid email or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Error message
+ *                   example: "Invalid email or password"
+ */
 router.post("/admin", authController.getAdminToken);
 
 module.exports = router;
