@@ -2,19 +2,18 @@ openapi: 3.0.0
 info:
   title: Cellphone API
   version: 1.0.0
-  description: API documentationssssssssss
+  description: API documentation
   contact:
-    name: Your Name
-    url: http://yourwebsite.com
-    email: youremail@domain.com
+    name: Adrian
+    email: rgadrian.93@gmail.com
 servers:
   - url: https://backend-test-five-sable.vercel.app/
 paths:
-  /client:
+  /cellphone:
     get:
       tags:
         - Cellphones
-      summary: Get list of cellphonesss
+      summary: Get list of cellphones
       responses:
         '200':
           description: List of cellphones
@@ -35,6 +34,7 @@ paths:
                       type: number
                       format: float
                       example: 999.99
+  /cellphone/add:
     post:
       tags:
         - Cellphones
@@ -71,7 +71,7 @@ paths:
                     type: number
                     format: float
                     example: 999.99
-  /client/{id}:
+  /cellphone/{id}:
     get:
       tags:
         - Cellphones
@@ -164,26 +164,161 @@ paths:
           description: Cellphone deleted successfully
         '404':
           description: Cellphone not found
-  /database/destroy:
-    delete:
+  /client:
+    get:
       tags:
-        - Database
-      summary: Destroy the entire database
-      security:
-        - bearerAuth: []
+        - Client
+      summary: Get list of cellphones
       responses:
         '200':
-          description: Database destroyed successfully
+          description: List of cellphones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "iPhone 12"
+                    price:
+                      type: number
+                      format: float
+                      example: 999.99
+  /client/add:
+    post:
+      tags:
+        - Client
+      summary: Add a new cellphone
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "iPhone 13"
+                price:
+                  type: number
+                  format: float
+                  example: 999.99
+      responses:
+        '201':
+          description: Cellphone added successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  msg:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
                     type: string
-                    example: "Database destroyed successfully"
-        '500':
-          description: Internal server error
+                    example: "iPhone 13"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+  /client/{id}:
+    get:
+      tags:
+        - Client
+      summary: Get a specific cellphone's information
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      responses:
+        '200':
+          description: Cellphone information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "iPhone 13"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+        '404':
+          description: Cellphone not found
+    patch:
+      tags:
+        - Client
+      summary: Update a specific cellphone's information
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "iPhone 13"
+                price:
+                  type: number
+                  format: float
+                  example: 999.99
+      responses:
+        '200':
+          description: Cellphone updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "iPhone 13"
+                  price:
+                    type: number
+                    format: float
+                    example: 999.99
+        '404':
+          description: Cellphone not found
+    delete:
+      tags:
+        - Client
+      summary: Delete a specific cellphone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Cellphone ID
+      responses:
+        '200':
+          description: Cellphone deleted successfully
+        '404':
+          description: Cellphone not found
   /database/run-seeders:
     post:
       tags:
@@ -215,6 +350,257 @@ paths:
                   error:
                     type: string
                     example: "Detailed error message"
+  /database/destroy:
+    delete:
+      tags:
+        - Database
+      summary: Destroy database
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Database destroyed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Database destroyed successfully"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Internal server error"
+                  error:
+                    type: string
+                    example: "Detailed error message"
+  /token/user:
+    post:
+      tags:
+        - Tokens
+      summary: Generate a user token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "user"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        '200':
+          description: Token generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  /token/admin:
+    post:
+      tags:
+        - Tokens
+      summary: Generate an admin token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "admin"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        '200':
+          description: Token generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  /admins:
+    get:
+      tags:
+        - Admins
+      summary: Get list of admins
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of admins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Admin"
+                    email:
+                      type: string
+                      example: "admin@example.com"
+    post:
+      tags:
+        - Admins
+      summary: Add a new admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Admin"
+                email:
+                  type: string
+                  example: "admin@example.com"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        '201':
+          description: Admin added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Admin"
+                  email:
+                    type: string
+                    example: "admin@example.com"
+  /admins/{id}:
+    get:
+      tags:
+        - Admins
+      summary: Get a specific admin's information
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Admin ID
+      responses:
+        '200':
+          description: Admin information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Admin"
+                  email:
+                    type: string
+                    example: "admin@example.com"
+        '404':
+          description: Admin not found
+    patch:
+      tags:
+        - Admins
+      summary: Update a specific admin's information
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Admin ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Admin"
+                email:
+                  type: string
+                  example: "admin@example.com"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        '200':
+          description: Admin updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Admin"
+                  email:
+                    type: string
+                    example: "admin@example.com"
+        '404':
+          description: Admin not found
+    delete:
+      tags:
+        - Admins
+      summary: Delete a specific admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Admin ID
+      responses:
+        '200':
+          description: Admin deleted successfully
+        '404':
+          description: Admin not found
 components:
   securitySchemes:
     bearerAuth:

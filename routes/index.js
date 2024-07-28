@@ -8,8 +8,8 @@ const adminRoutes = require("./adminRoutes");
 
 router.use("/cellphones", productRoutes);
 router.use("/client", clientRoutes);
-router.use("/token", authRoutes);
 router.use("/database", dbRoutes);
 router.use("/admins", adminRoutes);
+router.use("/token", authRoutes);
 
 module.exports = router;

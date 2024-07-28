@@ -10,7 +10,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://backend-test-five-sable.vercel.app/",
+        url: "http://localhost:3000",
       },
     ],
   },
