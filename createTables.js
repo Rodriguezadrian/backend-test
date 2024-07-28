@@ -1,12 +1,12 @@
-require("dotenv").config();
-const { sequelize } = require("./models");
+require('dotenv').config();
+const { sequelize, Product, Category, User, Admin } = require('./models');
 
 async function createTables() {
   try {
     await sequelize.sync({ force: true });
-    console.log("¡Tables created successfully!");
+    console.log("Tables created successfully!");
   } catch (error) {
-    console.error("Error in tables:", error);
+    console.error("Error creating tables:", error);
   }
 }
 

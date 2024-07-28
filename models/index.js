@@ -16,13 +16,17 @@ if (process.env.DB_CONNECTION === "postgres") {
   sequelizeOptions.dialectModule = require("pg");
 }
 
-const sequelize = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
-  sequelizeOptions
-);
-
+const sequelize = new Sequelize(process.env.POSTGRES_URL, {
+  dialect: "postgres",
+  protocol: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  logging: false,
+});
 Product.initModel(sequelize);
 Category.initModel(sequelize);
 User.initModel(sequelize);
